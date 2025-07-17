@@ -43,18 +43,18 @@ export class ChangePasswordComponent {
     }),
   });
 
-  get currentPasswordIsInvalid() {
+  get currentPasswordIsInvalid(): boolean {
     return this.formService.getControlInvalidState(
       this.form,
       'currentPassword',
     );
   }
 
-  get newPasswordIsInvalid() {
+  get newPasswordIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'newPassword');
   }
 
-  get confirmNewPasswordIsInvalid() {
+  get confirmNewPasswordIsInvalid(): boolean {
     return (
       this.form.controls.newPassword.value !==
         this.form.controls.confirmNewPassword.value &&
@@ -62,7 +62,7 @@ export class ChangePasswordComponent {
     );
   }
 
-  onChangePassword() {
+  onChangePassword(): void {
     if (this.form.invalid || this.confirmNewPasswordIsInvalid) {
       this.messageModalService.buildErrorMessage(
         'Preencha todos os campos corretamente!',

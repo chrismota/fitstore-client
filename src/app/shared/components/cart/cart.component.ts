@@ -35,7 +35,7 @@ export class CartComponent {
   total = this.cartService.getCartTotal;
   imageServerPath = this.productsService.imageServerPath;
 
-  onMakeOrder() {
+  onMakeOrder(): void {
     this.orderService
       .makeOrder(this.cartItems())
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -58,19 +58,19 @@ export class CartComponent {
       });
   }
 
-  onDecreaseCartItemQuantity(item: CartItem) {
+  onDecreaseCartItemQuantity(item: CartItem): void {
     this.cartService.decreaseCartItemQuantity(item);
   }
 
-  onIncreaseCartItemQuantity(item: CartItem) {
+  onIncreaseCartItemQuantity(item: CartItem): void {
     this.cartService.increaseCartItemQuantity(item);
   }
 
-  onRemoveCartItem(item: CartItem) {
+  onRemoveCartItem(item: CartItem): void {
     this.cartService.removeCartItem(item);
   }
 
-  onCloseCartBox() {
+  onCloseCartBox(): void {
     this.cartService.closeCartBox();
   }
 }

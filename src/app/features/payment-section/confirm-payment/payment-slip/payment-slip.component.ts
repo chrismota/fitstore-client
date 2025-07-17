@@ -13,7 +13,7 @@ export class PaymentSlipComponent {
   slipCode = signal<string | null>(null);
   success = output<void>();
 
-  onGeneratePaymentSlip() {
+  onGeneratePaymentSlip(): void {
     this.paymentSlipService.generateCode().subscribe((response) => {
       this.slipCode.set(response.code);
     });

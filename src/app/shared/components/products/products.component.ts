@@ -29,14 +29,14 @@ export class ProductsComponent {
   imageServerPath = this.productsService.imageServerPath;
   groupedProducts = input<Product[][]>([]);
 
-  groupedProductsHasPages = computed(() => {
+  groupedProductsHasPages = computed<boolean>(() => {
     return this.groupedProducts().length > 1;
   });
 
   currentIndex: number = 0;
   windowWidth: number = window.innerWidth;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.onResize();
   }
 
@@ -49,15 +49,15 @@ export class ProductsComponent {
   private touchEndX: number = 0;
   private swipeThreshold: number = 50;
 
-  onTouchStart(event: TouchEvent) {
+  onTouchStart(event: TouchEvent): void {
     this.touchStartX = event.touches[0].clientX;
   }
 
-  onTouchMove(event: TouchEvent) {
+  onTouchMove(event: TouchEvent): void {
     this.touchEndX = event.touches[0].clientX;
   }
 
-  onTouchEnd() {
+  onTouchEnd(): void {
     const deltaX = this.touchEndX - this.touchStartX;
     if (Math.abs(deltaX) > this.swipeThreshold) {
       if (deltaX > 0) this.onPrevSlide();
@@ -68,7 +68,7 @@ export class ProductsComponent {
     this.touchEndX = 0;
   }
 
-  onNextSlide() {
+  onNextSlide(): void {
     if (this.currentIndex < this.groupedProducts().length - 1) {
       this.currentIndex++;
     } else {
@@ -76,7 +76,7 @@ export class ProductsComponent {
     }
   }
 
-  onPrevSlide() {
+  onPrevSlide(): void {
     if (this.currentIndex > 0) {
       this.currentIndex--;
     } else {

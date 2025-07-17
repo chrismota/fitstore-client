@@ -10,25 +10,25 @@ export class PaginationService<T> {
 
   currentPage = this._currentPage.asReadonly();
 
-  setItems(items: T[]) {
+  setItems(items: T[]): void {
     this.items.set(items);
     this._currentPage.set(1);
   }
 
-  setItemsPerPage(count: number) {
+  setItemsPerPage(count: number): void {
     this.itemsPerPage.set(count);
   }
 
-  totalPages = computed(() => {
+  totalPages = computed<number>(() => {
     return Math.ceil(this.items().length / this.itemsPerPage());
   });
 
-  paginatedItems = computed(() => {
+  paginatedItems = computed<T[]>(() => {
     const start = (this._currentPage() - 1) * this.itemsPerPage();
     return this.items().slice(start, start + this.itemsPerPage());
   });
 
-  pageNumbers = computed(() => {
+  pageNumbers = computed<number[]>(() => {
     const total = this.totalPages();
     const current = this._currentPage();
     const pages: number[] = [];
@@ -60,19 +60,19 @@ export class PaginationService<T> {
     return pages;
   });
 
-  changePage(page: number) {
+  changePage(page: number): void {
     this._currentPage.set(page);
     this.windowService.scrollToTop();
   }
 
-  nextPage() {
+  nextPage(): void {
     if (this.currentPage() < this.totalPages()) {
       this._currentPage.update((page) => page + 1);
       this.windowService.scrollToTop();
     }
   }
 
-  prevPage() {
+  prevPage(): void {
     if (this.currentPage() > 1) {
       this._currentPage.update((page) => page - 1);
       this.windowService.scrollToTop();

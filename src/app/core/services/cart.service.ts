@@ -5,7 +5,7 @@ import { CartItem } from '../../models/cartItem.model';
   providedIn: 'root',
 })
 export class CartService {
-  private cartLocalStorageKey = signal('cart');
+  private cartLocalStorageKey = signal<string>('cart');
   cartLocalStorageValue = localStorage.getItem(this.cartLocalStorageKey());
 
   private _cart = signal<CartItem[]>(
@@ -13,17 +13,17 @@ export class CartService {
   );
   cart = this._cart.asReadonly();
 
-  private _cartIsVisible = signal(false);
-  private _cartIsFadingOut = signal(false);
+  private _cartIsVisible = signal<boolean>(false);
+  private _cartIsFadingOut = signal<boolean>(false);
 
   cartIsVisible = this._cartIsVisible.asReadonly();
   cartIsFadingOut = this._cartIsFadingOut.asReadonly();
 
-  getCartTotal = computed(() => {
+  getCartTotal = computed<number>(() => {
     return this._cart().reduce((acc, i) => acc + i.price * i.quantity, 0);
   });
 
-  closeCartBox() {
+  closeCartBox(): void {
     this._cartIsFadingOut.set(true);
 
     setTimeout(() => {
@@ -32,11 +32,11 @@ export class CartService {
     }, 600);
   }
 
-  private openCartBox() {
+  private openCartBox(): void {
     this._cartIsVisible.set(true);
   }
 
-  toggleVisibility() {
+  toggleVisibility(): void {
     if (this.cartIsVisible()) {
       this.closeCartBox();
     } else {
@@ -44,7 +44,7 @@ export class CartService {
     }
   }
 
-  addToCart(item: CartItem) {
+  addToCart(item: CartItem): void {
     const prevCart = this._cart();
 
     if (prevCart.some((i) => i.id == item.id)) {
@@ -64,7 +64,7 @@ export class CartService {
     }
   }
 
-  decreaseCartItemQuantity(item: CartItem) {
+  decreaseCartItemQuantity(item: CartItem): void {
     const prevCart = this._cart();
 
     if (item.quantity === 1) {
@@ -79,7 +79,7 @@ export class CartService {
     this.saveCartInLocalStorage();
   }
 
-  increaseCartItemQuantity(item: CartItem) {
+  increaseCartItemQuantity(item: CartItem): void {
     const prevCart = this._cart();
     this._cart.set(
       prevCart.map((i) =>
@@ -89,7 +89,7 @@ export class CartService {
     this.saveCartInLocalStorage();
   }
 
-  removeCartItem(item: CartItem) {
+  removeCartItem(item: CartItem): void {
     this._cart.set(this._cart().filter((i) => i.id !== item.id));
 
     if (this._cart().length === 0) {
@@ -101,12 +101,12 @@ export class CartService {
     this.saveCartInLocalStorage();
   }
 
-  clearCart() {
+  clearCart(): void {
     this._cart.set([]);
     localStorage.removeItem(this.cartLocalStorageKey());
   }
 
-  private saveCartInLocalStorage() {
+  private saveCartInLocalStorage(): void {
     localStorage.setItem(
       this.cartLocalStorageKey(),
       JSON.stringify(this._cart()),

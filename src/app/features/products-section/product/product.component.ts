@@ -48,11 +48,11 @@ export class ProductComponent {
   relatedProducts = signal<Product[]>([]);
   imageServerPath = this.productsService.imageServerPath;
 
-  relatedProductsIsEmpty = computed(() => {
+  relatedProductsIsEmpty = computed<boolean>(() => {
     return this.relatedProducts().length === 0;
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.updateVisibleItems();
 
     this.productsService
@@ -73,7 +73,7 @@ export class ProductComponent {
     this.windowService.scrollToTop();
   }
 
-  onAddToCart() {
+  onAddToCart(): void {
     if (!this.authService.userIsAuthenticated()) {
       this.messageModalService.buildErrorMessage(
         'Faça login para adicionar produtos ao carrinho.',
@@ -90,11 +90,11 @@ export class ProductComponent {
     });
   }
 
-  onIncreaseUnit() {
+  onIncreaseUnit(): void {
     this.productUnit.update((unit) => unit + 1);
   }
 
-  onDecreaseUnit() {
+  onDecreaseUnit(): void {
     if (this.productUnit() > 1) {
       this.productUnit.update((unit) => unit - 1);
     }
@@ -106,16 +106,16 @@ export class ProductComponent {
   visibleItems = 1;
   carouselWidth = 0;
 
-  get prevButtonIsDisabled() {
+  get prevButtonIsDisabled(): boolean {
     return this.currentSlide === 0;
   }
 
   @HostListener('window:resize')
-  onResize() {
+  onResize(): void {
     this.updateVisibleItems();
   }
 
-  updateVisibleItems() {
+  updateVisibleItems(): void {
     const screenWidth = window.innerWidth;
     if (screenWidth >= 1200) this.visibleItems = 5;
     else if (screenWidth >= 992) this.visibleItems = 4;
@@ -128,12 +128,12 @@ export class ProductComponent {
     this.updateTranslateX();
   }
 
-  maxSlide = computed(() => {
+  maxSlide = computed<number>(() => {
     const totalItems = this.relatedProducts().length || 0;
     return Math.max(totalItems - this.visibleItems, 0);
   });
 
-  onNextSlide(container: HTMLElement) {
+  onNextSlide(container: HTMLElement): void {
     this.currentSlide++;
     this.updateTranslateX();
 
@@ -148,7 +148,7 @@ export class ProductComponent {
     }
   }
 
-  onPrevSlide(container: HTMLElement) {
+  onPrevSlide(container: HTMLElement): void {
     if (this.currentSlide === 0) {
       this.disableTransition(container);
       this.currentSlide = this.relatedProducts().length || 0;
@@ -166,27 +166,27 @@ export class ProductComponent {
     }
   }
 
-  disableTransition(container: HTMLElement) {
+  disableTransition(container: HTMLElement): void {
     container.style.transition = 'none';
   }
 
-  enableTransition(container: HTMLElement) {
+  enableTransition(container: HTMLElement): void {
     requestAnimationFrame(() => {
       container.style.transition = 'transform 0.5s ease';
     });
   }
 
-  updateTranslateX() {
+  updateTranslateX(): void {
     this.translateX = -this.currentSlide * this.itemWidth;
   }
 
-  clampCurrentSlide() {
+  clampCurrentSlide(): void {
     if (this.currentSlide > this.maxSlide()) {
       this.currentSlide = this.maxSlide();
     }
   }
 
-  trackByProdutoId(index: number, product: Product) {
+  trackByProdutoId(index: number, product: Product): string {
     return `${product.id}-${index}`;
   }
 
@@ -194,15 +194,15 @@ export class ProductComponent {
   private touchEndX: number = 0;
   private swipeThreshold: number = 50;
 
-  onTouchStart(event: TouchEvent) {
+  onTouchStart(event: TouchEvent): void {
     this.touchStartX = event.touches[0].clientX;
   }
 
-  onTouchMove(event: TouchEvent) {
+  onTouchMove(event: TouchEvent): void {
     this.touchEndX = event.touches[0].clientX;
   }
 
-  onTouchEnd(container: HTMLElement) {
+  onTouchEnd(container: HTMLElement): void {
     const deltaX = this.touchEndX - this.touchStartX;
     if (Math.abs(deltaX) > this.swipeThreshold) {
       if (deltaX > 0) this.onPrevSlide(container);
@@ -213,7 +213,7 @@ export class ProductComponent {
     this.touchEndX = 0;
   }
 
-  loopedProducts = computed(() => {
+  loopedProducts = computed<Product[]>(() => {
     const products = this.relatedProducts();
     return products ? [...products, ...products] : [];
   });

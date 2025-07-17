@@ -28,11 +28,11 @@ export class UserOrdersComponent {
   loading = signal<boolean>(true);
   selected = signal<'ALL' | 'PENDING' | 'FAILED' | 'PAID'>('ALL');
 
-  orderIsEmpty = computed(() => {
+  orderIsEmpty = computed<boolean>(() => {
     return this.orders().length === 0;
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.orderService
       .getOrders()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -44,7 +44,7 @@ export class UserOrdersComponent {
       });
   }
 
-  onSelectOrder(selectedStatus: 'ALL' | 'PENDING' | 'FAILED' | 'PAID') {
+  onSelectOrder(selectedStatus: 'ALL' | 'PENDING' | 'FAILED' | 'PAID'): void {
     this.selected.set(selectedStatus);
     this.orderService
       .getOrdersByStatus(selectedStatus)
@@ -65,16 +65,16 @@ export class UserOrdersComponent {
       });
   }
 
-  onGoToPayment(order: Order) {
+  onGoToPayment(order: Order): void {
     this.orderService.setOrder(order);
     this.router.navigate(['/payment']);
   }
 
-  isStatus(order: Order, status: string) {
+  isStatus(order: Order, status: string): boolean {
     return order.status === status;
   }
 
-  isSelected(option: string) {
+  isSelected(option: string): boolean {
     return this.selected() === option;
   }
 }

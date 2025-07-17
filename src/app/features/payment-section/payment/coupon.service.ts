@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Coupon } from '../../../models/coupon.model';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { catchError, map, of } from 'rxjs';
 export class CouponService {
   private httpClient = inject(HttpClient);
 
-  loadCoupons() {
+  loadCoupons(): Observable<Coupon[]> {
     return this.httpClient
       .get<{
         coupons: Coupon[];

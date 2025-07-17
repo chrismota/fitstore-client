@@ -6,7 +6,7 @@ import {
   HttpContext,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, EMPTY, map, of } from 'rxjs';
+import { catchError, EMPTY, map, Observable, of } from 'rxjs';
 import { SKIP_AUTH } from '../tokens/auth-context-token';
 import { MessageModalService } from './messageModal.service';
 import { Router } from '@angular/router';
@@ -20,10 +20,12 @@ export class ProductsService {
   private messageModalService = inject(MessageModalService);
   private router = inject(Router);
 
-  private _imageServerPath = signal('http://localhost:9090/fitstorebucket/');
+  private _imageServerPath = signal<string>(
+    'http://localhost:9090/fitstorebucket/',
+  );
   imageServerPath = this._imageServerPath.asReadonly();
 
-  loadProducts() {
+  loadProducts(): Observable<Product[][]> {
     return this.fetchProducts('http://localhost:8080/products').pipe(
       map((products) => {
         return this.groupProducts(products);
@@ -31,7 +33,7 @@ export class ProductsService {
     );
   }
 
-  private groupProducts(products: Product[]) {
+  private groupProducts(products: Product[]): Product[][] {
     const chunkSize = 12;
     const productChunks: Product[][] = [];
 
@@ -42,7 +44,7 @@ export class ProductsService {
     return productChunks;
   }
 
-  loadRelatedProducts(category: string) {
+  loadRelatedProducts(category: string): Observable<Product[]> {
     return this.fetchProducts(
       `http://localhost:8080/products/category?category=${category}`,
     ).pipe(
@@ -59,7 +61,7 @@ export class ProductsService {
     );
   }
 
-  loadProductsBySubCategory(subCategory: string) {
+  loadProductsBySubCategory(subCategory: string): Observable<Product[][]> {
     return this.fetchProducts(
       `http://localhost:8080/products/subcategory?subcategory=${subCategory.toUpperCase()}`,
     ).pipe(
@@ -81,13 +83,13 @@ export class ProductsService {
     );
   }
 
-  searchProducts(name: string) {
+  searchProducts(name: string): Observable<Product[]> {
     return this.fetchProducts(
       'http://localhost:8080/products/search?name=' + name,
     );
   }
 
-  private fetchProducts(url: string) {
+  private fetchProducts(url: string): Observable<Product[]> {
     return this.httpClient
       .get<{ products: Product[] }>(url, {
         context: new HttpContext().set(SKIP_AUTH, true),
@@ -95,7 +97,7 @@ export class ProductsService {
       .pipe(map((resData) => resData.products));
   }
 
-  loadProduct(productId: string) {
+  loadProduct(productId: string): Observable<Product> {
     return this.fetchProduct(
       `http://localhost:8080/products/${productId}`,
     ).pipe(
@@ -114,7 +116,7 @@ export class ProductsService {
     );
   }
 
-  private fetchProduct(url: string) {
+  private fetchProduct(url: string): Observable<Product> {
     return this.httpClient.get<Product>(url, {
       context: new HttpContext().set(SKIP_AUTH, true),
     });

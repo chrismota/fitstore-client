@@ -69,50 +69,50 @@ export class RegisterComponent {
     }),
   });
 
-  get nameIsInvalid() {
+  get nameIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'name');
   }
 
-  get emailIsInvalid() {
+  get emailIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'email');
   }
 
-  get telIsInvalid() {
+  get telIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'tel');
   }
-  get streetIsInvalid() {
+  get streetIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'street');
   }
 
-  get houseNumberIsInvalid() {
+  get houseNumberIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'houseNumber');
   }
 
-  get neighborhoodIsInvalid() {
+  get neighborhoodIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'neighborhood');
   }
 
-  get cityIsInvalid() {
+  get cityIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'city');
   }
 
-  get stateIsInvalid() {
+  get stateIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'state');
   }
 
-  get cepIsInvalid() {
+  get cepIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'cep');
   }
 
-  get cpfIsInvalid() {
+  get cpfIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'cpf');
   }
 
-  get passwordIsInvalid() {
+  get passwordIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'password');
   }
 
-  get confirmPasswordIsInvalid() {
+  get confirmPasswordIsInvalid(): boolean {
     return (
       this.form.controls.password.value !==
         this.form.controls.confirmPassword.value &&
@@ -120,7 +120,7 @@ export class RegisterComponent {
     );
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.invalid || this.confirmPasswordIsInvalid) {
       return;
     }

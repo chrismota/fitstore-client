@@ -39,23 +39,23 @@ export class SearchComponent {
   currentPage = this.paginationService.currentPage;
   totalPages = this.paginationService.totalPages;
 
-  prevButtonIsDisabled = computed(() => {
+  prevButtonIsDisabled = computed<boolean>(() => {
     return this.currentPage() === 1;
   });
 
-  nextButtonIsDisabled = computed(() => {
+  nextButtonIsDisabled = computed<boolean>(() => {
     return this.currentPage() === this.totalPages();
   });
 
-  pageNumbersIsEmpty = computed(() => {
+  pageNumbersIsEmpty = computed<boolean>(() => {
     return this.pageNumbers().length === 0;
   });
 
-  paginatedProductsIsEmpty = computed(() => {
+  paginatedProductsIsEmpty = computed<boolean>(() => {
     return this.paginatedProducts().length === 0;
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.name.set(params['name']);
     });
@@ -71,7 +71,7 @@ export class SearchComponent {
       });
   }
 
-  onAddToCart(product: Product) {
+  onAddToCart(product: Product): void {
     if (!this.authService.userIsAuthenticated()) {
       this.messageModalService.buildErrorMessage(
         'Faça login para adicionar produtos ao carrinho.',
@@ -88,19 +88,19 @@ export class SearchComponent {
     });
   }
 
-  onChangePage(p: number) {
+  onChangePage(p: number): void {
     this.paginationService.changePage(p);
   }
 
-  onNextPage() {
+  onNextPage(): void {
     this.paginationService.nextPage();
   }
 
-  onPrevPage() {
+  onPrevPage(): void {
     this.paginationService.prevPage();
   }
 
-  buttonIsActive(page: number) {
+  buttonIsActive(page: number): boolean {
     return this.currentPage() === page;
   }
 }

@@ -56,20 +56,20 @@ export class HeaderComponent {
   imageServerPath = this.customerService.imageServerPath;
   customer = this.customerService.customer;
 
-  cartIsEmpty = computed(() => {
+  cartIsEmpty = computed<boolean>(() => {
     return this.cart().length === 0;
   });
 
-  onToggleVisibility() {
+  onToggleVisibility(): void {
     this.cartService.toggleVisibility();
   }
 
-  onLogout() {
+  onLogout(): void {
     this.authService.logout();
     this.messageModalService.buildSuccessMessage('Você foi deslogado.');
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.searchQuery().trim()) {
       if (this.searchQuery().length < 3) {
         this.messageModalService.buildErrorMessage(
@@ -86,11 +86,11 @@ export class HeaderComponent {
     }
   }
 
-  onToggleDropdownOn() {
+  onToggleDropdownOn(): void {
     this.isDropdownOpen = true;
   }
 
-  onToggleDropdownOff() {
+  onToggleDropdownOff(): void {
     this.isDropdownOpen = false;
   }
 }

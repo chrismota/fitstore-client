@@ -29,19 +29,19 @@ export class ChangeProfilePictureComponent {
   selectedImage = this.fileService.selectedImage;
   previewUrl = this.fileService.previewUrl;
 
-  userHasNoImage = computed(() => {
+  userHasNoImage = computed<boolean>(() => {
     return !this.customer()?.imagePath && !this.selectedImage();
   });
 
-  userHasProfileImage = computed(() => {
+  userHasProfileImage = computed<boolean | '' | undefined>(() => {
     return this.customer()?.imagePath && !this.selectedImage();
   });
 
-  onFileSelected(files: FileList | null) {
+  onFileSelected(files: FileList | null): void {
     this.fileService.onFileSelected(files);
   }
 
-  onUpload() {
+  onUpload(): void {
     if (!this.selectedImage()) {
       this.messageModalService.buildErrorMessage('Nenhuma imagem selecionada!');
       return;

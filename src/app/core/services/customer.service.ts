@@ -2,7 +2,7 @@ import { effect, inject, Injectable, signal } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Customer } from '../../models/customer.model';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,9 @@ import { tap } from 'rxjs';
 export class CustomerService {
   private httpClient = inject(HttpClient);
 
-  private _imageServerPath = signal('http://localhost:9090/fitstorebucket/');
+  private _imageServerPath = signal<string>(
+    'http://localhost:9090/fitstorebucket/',
+  );
   imageServerPath = this._imageServerPath.asReadonly();
 
   private _customer = signal<Customer | null>(null);
@@ -21,16 +23,16 @@ export class CustomerService {
     this._syncToLocalStorage();
   }
 
-  setLoggedCustomer(customer: Customer) {
+  setLoggedCustomer(customer: Customer): void {
     this._customer.set(customer);
   }
 
-  clearCustomer() {
+  clearCustomer(): void {
     this._customer.set(null);
     localStorage.removeItem('user');
   }
 
-  private _loadCustomerFromStorage() {
+  private _loadCustomerFromStorage(): void {
     const stored = localStorage.getItem('user');
     if (stored) {
       const parsed = JSON.parse(stored) as Customer;
@@ -38,7 +40,7 @@ export class CustomerService {
     }
   }
 
-  private _syncToLocalStorage() {
+  private _syncToLocalStorage(): void {
     effect(() => {
       const user = this._customer();
       if (user) {
@@ -60,7 +62,7 @@ export class CustomerService {
     cpf: string,
     email: string,
     password: string,
-  ) {
+  ): Observable<Customer> {
     return this.httpClient.post<Customer>(`http://localhost:8080/customers`, {
       name,
       email,
@@ -90,7 +92,7 @@ export class CustomerService {
     cep: string,
     cpf: string,
     email: string,
-  ) {
+  ): Observable<Customer> {
     if (complement === '') complement = null;
     return this.httpClient
       .put<Customer>(`http://localhost:8080/customers/info`, {
@@ -113,7 +115,10 @@ export class CustomerService {
       );
   }
 
-  editCustomerPassword(currentPassword: string, newPassword: string) {
+  editCustomerPassword(
+    currentPassword: string,
+    newPassword: string,
+  ): Observable<Customer> {
     return this.httpClient.put<Customer>(
       `http://localhost:8080/customers/password`,
       {
@@ -123,7 +128,7 @@ export class CustomerService {
     );
   }
 
-  getCustomer(token: string) {
+  getCustomer(token: string): Observable<Customer> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.httpClient
@@ -135,7 +140,7 @@ export class CustomerService {
       );
   }
 
-  uploadCustomerImage(image: File) {
+  uploadCustomerImage(image: File): Observable<Customer> {
     const formData = new FormData();
     formData.append('image', image);
 

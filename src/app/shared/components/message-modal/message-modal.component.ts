@@ -14,11 +14,11 @@ export class MesssageModalComponent {
   type = input<string | null>();
   public messageModalService = inject(MessageModalService);
 
-  isType(type: string) {
+  isType(type: string): boolean {
     return this.type() === type;
   }
 
-  onCloseModal() {
+  onCloseModal(): void {
     this.messageModalService.clearMessage();
   }
 }

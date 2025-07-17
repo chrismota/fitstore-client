@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { CartItem } from '../../models/cartItem.model';
 import { Order } from '../../models/order.model';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -20,12 +20,12 @@ export class OrderService {
     initialValue: null,
   });
 
-  setOrder(order: Order) {
+  setOrder(order: Order): void {
     this.orderSubject.next(order);
     localStorage.setItem(this.storageKey, JSON.stringify(order));
   }
 
-  clearOrder() {
+  clearOrder(): void {
     this.orderSubject.next(null);
     localStorage.removeItem(this.storageKey);
   }
@@ -38,12 +38,12 @@ export class OrderService {
   private _discountPercent = signal<number>(this.loadDiscountPercent());
   discountPercent = this._discountPercent.asReadonly();
 
-  setDiscountPercent(percent: number) {
+  setDiscountPercent(percent: number): void {
     this._discountPercent.set(percent);
     localStorage.setItem('percent', JSON.stringify(percent));
   }
 
-  clearDiscountPercent() {
+  clearDiscountPercent(): void {
     localStorage.removeItem('percent');
   }
 
@@ -52,17 +52,17 @@ export class OrderService {
     return stored ? JSON.parse(stored) : 0;
   }
 
-  total = computed(() => this.orderSignal()?.totalValue);
+  total = computed<number | undefined>(() => this.orderSignal()?.totalValue);
 
-  discountValue = computed(() => {
+  discountValue = computed<number>(() => {
     return this.total()! * (this._discountPercent() / 100);
   });
 
-  totalWithDiscount = computed(() => {
+  totalWithDiscount = computed<number>(() => {
     return this.total()! - this.discountValue();
   });
 
-  makeOrder(cart: CartItem[]) {
+  makeOrder(cart: CartItem[]): Observable<Order> {
     const products = cart.map((product) => ({
       id: product.id,
       quantity: product.quantity,
@@ -73,7 +73,7 @@ export class OrderService {
     });
   }
 
-  getOrders() {
+  getOrders(): Observable<Order[]> {
     return this.httpClient
       .get<{ orders: Order[] }>('http://localhost:8080/orders')
       .pipe(
@@ -83,7 +83,9 @@ export class OrderService {
       );
   }
 
-  getOrdersByStatus(status: 'PENDING' | 'PAID' | 'FAILED' | 'ALL') {
+  getOrdersByStatus(
+    status: 'PENDING' | 'PAID' | 'FAILED' | 'ALL',
+  ): Observable<Order[]> {
     if (status === 'ALL') {
       return this.getOrders();
     }

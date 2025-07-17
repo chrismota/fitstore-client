@@ -60,7 +60,7 @@ export class AuthService {
       );
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem(this._tokenKey());
     this.userIsAuthenticated.set(false);
     this.customerService.clearCustomer();
@@ -68,7 +68,7 @@ export class AuthService {
     this.router.navigate(['/auth/login']);
   }
 
-  private isTokenExpired() {
+  private isTokenExpired(): boolean {
     const token = this.getToken();
     if (token) {
       try {
@@ -82,7 +82,7 @@ export class AuthService {
     return false;
   }
 
-  checkSessionExpiration() {
+  checkSessionExpiration(): void {
     setInterval(() => {
       if (this.isTokenExpired()) {
         this.logout();

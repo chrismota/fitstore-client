@@ -34,21 +34,21 @@ export class LoginComponent {
     }),
   });
 
-  get emailIsInvalid() {
+  get emailIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'email');
   }
 
-  get passwordIsInvalid() {
+  get passwordIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'password');
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.invalid) {
       return;
     }
 
-    const enteredEmail = this.form.value.email;
-    const enteredPassword = this.form.value.password;
+    const enteredEmail = this.form.value.email?.trim();
+    const enteredPassword = this.form.value.password?.trim();
 
     this.authService
       .login(enteredEmail!, enteredPassword!)

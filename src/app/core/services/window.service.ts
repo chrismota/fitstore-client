@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class WindowService {
-  scrollToTop() {
+  scrollToTop(): void {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',

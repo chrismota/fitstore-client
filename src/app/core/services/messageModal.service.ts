@@ -12,25 +12,25 @@ export class MessageModalService {
   message = this._message.asReadonly();
   type = this._type.asReadonly();
 
-  buildSuccessMessage(message: string) {
+  buildSuccessMessage(message: string): void {
     this.buildMessage('Sucesso', message, 'SUCCESS');
   }
 
-  buildErrorMessage(message: string) {
+  buildErrorMessage(message: string): void {
     this.buildMessage('Erro', message, 'ERROR');
   }
 
   private buildMessage(
     title: string,
     message: string,
-    type: 'SUCCESS' | 'ERROR'
-  ) {
+    type: 'SUCCESS' | 'ERROR',
+  ): void {
     this._title.set(title);
     this._message.set(message);
     this._type.set(type);
   }
 
-  clearMessage() {
+  clearMessage(): void {
     this._title.set(null);
     this._message.set(null);
     this._type.set(null);

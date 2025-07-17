@@ -40,29 +40,29 @@ export class CardPaymentComponent {
     ]),
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form.statusChanges.subscribe(() => {
       this.validStatusChange.emit(this.form.valid);
     });
   }
 
-  get cardNumberIsInvalid() {
+  get cardNumberIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'cardNumber');
   }
 
-  get nameIsInvalid() {
+  get nameIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'name');
   }
 
-  get securityCodeIsInvalid() {
+  get securityCodeIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'securityCode');
   }
 
-  get expirationDateIsInvalid() {
+  get expirationDateIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'expirationDate');
   }
 
-  get cpfCnpjIsInvalid() {
+  get cpfCnpjIsInvalid(): boolean {
     return this.formService.getControlInvalidState(this.form, 'cpfCnpj');
   }
 }

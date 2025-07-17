@@ -53,7 +53,7 @@ export class PaymentComponent {
 
   loadedCoupons = signal<Coupon[]>([]);
   selectedCoupons = signal<Coupon[]>([]);
-  couponListIsEmpty = computed(() => {
+  couponListIsEmpty = computed<boolean>(() => {
     return this.loadedCoupons().length === 0 && !this.isLoading();
   });
 
@@ -67,7 +67,7 @@ export class PaymentComponent {
     }),
   });
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.windowService.scrollToTop();
 
     if (!this.order()) {
@@ -96,7 +96,7 @@ export class PaymentComponent {
       });
   }
 
-  onSelectCode(coupon: Coupon, copyButton: HTMLButtonElement) {
+  onSelectCode(coupon: Coupon, copyButton: HTMLButtonElement): void {
     const result = this.couponService.applyOrRemoveCoupon(
       this.selectedCoupons(),
       coupon,
@@ -121,7 +121,7 @@ export class PaymentComponent {
     }
   }
 
-  onSimulatePayment() {
+  onSimulatePayment(): void {
     if (this.form.invalid) {
       return;
     }

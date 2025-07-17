@@ -18,11 +18,11 @@ export class DropdownItemComponent {
   mouseEnter = output<string>();
   mouseLeave = output<void>();
 
-  onMouseEnter() {
+  onMouseEnter(): void {
     this.mouseEnter.emit(this.dropsideId());
   }
 
-  onMouseLeave() {
+  onMouseLeave(): void {
     this.mouseLeave.emit();
   }
 }

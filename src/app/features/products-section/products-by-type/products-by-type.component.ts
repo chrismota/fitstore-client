@@ -29,7 +29,7 @@ export class ProductsByTypeComponent {
   loading = signal<boolean>(true);
   groupedProducts = signal<Product[][]>([]);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParams
       .pipe(
         takeUntilDestroyed(this.destroyRef),

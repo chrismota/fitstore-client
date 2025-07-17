@@ -18,7 +18,7 @@ export class HomeComponent {
   loading = signal<boolean>(true);
   groupedProducts = signal<Product[][]>([]);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.productsService
       .loadProducts()
       .pipe(takeUntilDestroyed(this.destroyRef))

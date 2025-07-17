@@ -13,7 +13,7 @@ export class ImageUploadService {
 
   private messageModalService = inject(MessageModalService);
 
-  onFileSelected(imageFile: FileList | null) {
+  onFileSelected(imageFile: FileList | null): void {
     if (!imageFile || imageFile.length === 0) return;
 
     const file = imageFile[0];
@@ -39,7 +39,7 @@ export class ImageUploadService {
     reader.readAsDataURL(file);
   }
 
-  clearFile() {
+  clearFile(): void {
     this._selectedImage.set(null);
   }
 }

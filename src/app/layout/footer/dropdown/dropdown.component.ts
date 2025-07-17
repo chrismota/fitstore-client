@@ -16,7 +16,7 @@ export class DropdownComponent {
 
   dropdownItems = this.dropdownDataService.dropdownItems;
 
-  isActiveDropside(id: string) {
+  isActiveDropside(id: string): boolean {
     return this.activeDropside() === id;
   }
 

@@ -17,11 +17,11 @@ import { ChangeProfilePictureComponent } from './change-profile-picture/change-p
 export class UserProfileComponent {
   selected = signal<'INFO' | 'PASSWORD' | 'IMAGE'>('INFO');
 
-  onSelectSetting(selectedStatus: 'INFO' | 'PASSWORD' | 'IMAGE') {
+  onSelectSetting(selectedStatus: 'INFO' | 'PASSWORD' | 'IMAGE'): void {
     this.selected.set(selectedStatus);
   }
 
-  isSelected(option: string) {
+  isSelected(option: string): boolean {
     return this.selected() === option;
   }
 }

@@ -13,7 +13,7 @@ export class PixPaymentComponent {
   success = output<void>();
   pixCode = signal<string | null>(null);
 
-  onGeneratePix() {
+  onGeneratePix(): void {
     this.pixService.generatePixCode().subscribe((response) => {
       this.pixCode.set(response.code);
     });

@@ -32,12 +32,12 @@ export class ConfirmPaymentComponent {
   private orderService = inject(OrderService);
   private windowService = inject(WindowService);
 
-  showPaymentButton = signal(false);
+  showPaymentButton = signal<boolean>(false);
   order = this.orderService.orderSignal;
   paymentType = signal<string>(history.state.paymentType);
   couponsIds = signal<{ id: string }[]>(history.state.couponsIds);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.windowService.scrollToTop();
 
     if (!this.paymentType()) {
@@ -45,19 +45,19 @@ export class ConfirmPaymentComponent {
     }
   }
 
-  isPaymentType(type: string) {
+  isPaymentType(type: string): boolean {
     return this.paymentType() === type;
   }
 
-  showButton() {
+  showButton(): void {
     this.showPaymentButton.set(true);
   }
 
-  onFormValidityChange(isValid: boolean) {
+  onFormValidityChange(isValid: boolean): void {
     this.showPaymentButton.set(isValid);
   }
 
-  onSimulatePayment() {
+  onSimulatePayment(): void {
     this.paymentService
       .createPayment(this.order()!.id, this.paymentType(), this.couponsIds())
       .pipe(takeUntilDestroyed(this.destroyRef))
