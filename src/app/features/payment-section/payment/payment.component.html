@@ -1,0 +1,272 @@
+<main>
+  <header class="main-header">
+    <h1>Finalize sua compra</h1>
+    <p>
+      Verifique seus dados e os de sua compra, adicione um cupom se disponível e
+      selecione um tipo de pagamento para prosseguir.
+    </p>
+  </header>
+  <div class="columns">
+    <div class="left column">
+      <section class="products-section">
+        <header>
+          <h2>Lista de produtos</h2>
+        </header>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th class="image-head">Imagem</th>
+                <th class="name-head">Nome</th>
+                <th class="qtd-head">Qtd.</th>
+                <th class="price-head">Preço</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (cartItem of order()?.items; track cartItem.id) {
+                <tr>
+                  <td class="td-image" data-label="Imagem">
+                    @if (cartItem.imagePath) {
+                      <img
+                        [src]="imageServerPath() + cartItem.imagePath"
+                        [title]="cartItem.productName"
+                        [alt]="cartItem.productName"
+                      />
+                    } @else {
+                      <img
+                        src="assets/images/placeholders/no-product.png"
+                        [title]="cartItem.productName"
+                        [alt]="cartItem.productName"
+                      />
+                    }
+                  </td>
+                  <td data-label="Nome">
+                    <p>
+                      {{ cartItem.productName }}
+                    </p>
+                  </td>
+                  <td data-label="Quantidade">
+                    <p>{{ cartItem.quantity }}</p>
+                  </td>
+                  <td data-label="Preço">
+                    <p>
+                      {{ cartItem.unityPrice | currency: "BRL" }}
+                    </p>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="user-data">
+        <header>
+          <h2>Seus dados</h2>
+        </header>
+        <div class="user-data-details">
+          <div class="controls">
+            <div class="row">
+              <div class="control">
+                <label for="name">Nome</label>
+                <input
+                  id="name"
+                  type="text"
+                  [value]="customer()?.name"
+                  readonly
+                />
+              </div>
+              <div class="control">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  type="text"
+                  [value]="customer()?.email"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="control">
+                <label for="cpf">CPF</label>
+                <input
+                  id="cpf"
+                  type="text"
+                  [value]="formatCpf(customer()?.cpf)"
+                  readonly
+                />
+              </div>
+              <div class="control">
+                <label for="phone">Telefone</label>
+                <input
+                  id="phone"
+                  type="text"
+                  [value]="formatPhone(customer()?.phoneNumber)"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="control">
+                <label for="street">Rua:</label>
+                <input
+                  id="street"
+                  type="text"
+                  [value]="customer()?.street"
+                  readonly
+                />
+              </div>
+              <div class="control">
+                <label for="houseNumber">nº:</label>
+                <input
+                  id="houseNumber"
+                  type="text"
+                  [value]="customer()?.houseNumber"
+                  readonly
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="control">
+                <label for="complement">Complemento:</label>
+                <input
+                  id="complement"
+                  type="text"
+                  [value]="customer()?.complement"
+                  readonly
+                />
+              </div>
+              <div class="control">
+                <label for="neighborhood">Bairro:</label>
+                <input
+                  id="neighborhood"
+                  type="text"
+                  [value]="customer()?.neighborhood"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="control">
+                <label for="city">Cidade:</label>
+                <input
+                  id="city"
+                  type="text"
+                  [value]="customer()?.city"
+                  readonly
+                />
+              </div>
+              <div class="control">
+                <label for="state">Estado:</label>
+                <input
+                  id="state"
+                  type="text"
+                  [value]="customer()?.state"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="control">
+                <label for="cep">Cep:</label>
+                <input
+                  id="cep"
+                  type="text"
+                  [value]="formatCep(customer()?.cep)"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="payment-type-section">
+        <header>
+          <h2>Tipo de pagamento</h2>
+        </header>
+        <form [formGroup]="form" (ngSubmit)="onSimulatePayment()">
+          <div class="payment-type-list">
+            <label>
+              <input
+                type="radio"
+                formControlName="paymentType"
+                value="CREDIT_CARD"
+              />
+              Cartão de crédito
+            </label>
+            <label>
+              <input
+                type="radio"
+                formControlName="paymentType"
+                value="DEBIT_CARD"
+              />
+              Cartão de débito
+            </label>
+            <label>
+              <input type="radio" formControlName="paymentType" value="PIX" />
+              Pix
+            </label>
+            <label>
+              <input
+                type="radio"
+                formControlName="paymentType"
+                value="PAYMENT_SLIP"
+              />
+              Boleto bancário
+            </label>
+          </div>
+          <button class="payment-button hover-bg-red" type="submit">
+            Simular pagamento
+          </button>
+        </form>
+      </section>
+    </div>
+    <div class="right column">
+      <section class="coupon-section">
+        <header>
+          <h2>Cupons Disponíveis</h2>
+        </header>
+        @if (!isLoading()) {
+          <div class="coupon-list">
+            @if (couponListIsEmpty()) {
+              <div class="coupon-empty">
+                <p>Nenhum cupom disponível <span>no momento.</span></p>
+              </div>
+            } @else {
+              @for (coupon of loadedCoupons(); track coupon.id) {
+                <article class="coupon-card">
+                  <p class="coupon-name">{{ coupon.name }}</p>
+                  <p>
+                    <strong>Cód: </strong>
+                    <span class="code">{{ coupon.code }}</span>
+                  </p>
+                  <p><strong>Desconto:</strong> {{ coupon.percentage }}%</p>
+                  <p>
+                    <strong>Valor min.:</strong>
+                    {{ coupon.minValue | currency: "BRL" }}
+                  </p>
+                  <p>
+                    <strong>Vál. até:</strong>
+                    {{ coupon.expirationTime | date: "dd/MM/yy" }}
+                  </p>
+                  <button
+                    class="copy-button hover-bg-red"
+                    (click)="onSelectCode(coupon, copyButton)"
+                    #copyButton
+                  >
+                    Usar código
+                  </button>
+                </article>
+              }
+            }
+          </div>
+        } @else {
+          <div class="coupon-empty">
+            <p>Carregando cupons...</p>
+          </div>
+        }
+      </section>
+      <app-total-section></app-total-section>
+    </div>
+  </div>
+</main>

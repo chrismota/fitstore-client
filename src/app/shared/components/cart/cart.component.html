@@ -1,0 +1,62 @@
+<section
+  [class.fade-in]="!cartIsFadingOut()"
+  [class.fade-out]="cartIsFadingOut()"
+  class="cart-container"
+>
+  <button class="close-button hover-color-red" (click)="onCloseCartBox()">
+    Fechar
+  </button>
+  <div class="cart">
+    <header>
+      <p>Carrinho de compras</p>
+    </header>
+    <div class="cart-list">
+      @for (cartItem of cartItems(); track $index) {
+        <div class="cart-item">
+          <div class="details">
+            <figure class="image">
+              @if (cartItem.imagePath) {
+                <img
+                  [src]="imageServerPath() + cartItem.imagePath"
+                  [alt]="cartItem.name"
+                  [title]="cartItem.name"
+                />
+              } @else {
+                <img
+                  src="assets/images/placeholders/no-product.png"
+                  alt="Sem imagem"
+                  title="Sem imagem"
+                />
+              }
+              <figcaption class="offscreen">{{ cartItem.name }}</figcaption>
+            </figure>
+            <div class="info">
+              <p class="name">
+                {{ cartItem.name }}
+              </p>
+              <p class="price">
+                {{ cartItem.price | currency: "BRL" }}
+              </p>
+            </div>
+          </div>
+
+          <div class="quantity">
+            <button (click)="onDecreaseCartItemQuantity(cartItem)">-</button>
+            <input type="text" [value]="cartItem.quantity" readonly />
+            <button (click)="onIncreaseCartItemQuantity(cartItem)">+</button>
+          </div>
+          <div class="remove">
+            <button (click)="onRemoveCartItem(cartItem)">
+              <fa-icon [icon]="faTrashCan"></fa-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <p>Total: {{ total() | currency: "BRL" }}</p>
+    <button (click)="onMakeOrder()">Fazer pedido</button>
+  </div>
+</section>

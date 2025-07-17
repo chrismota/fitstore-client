@@ -1,0 +1,19 @@
+<main>
+  <header>
+    <h1>Bem-vindo ao Fitstore!</h1>
+    <p>Os melhores produtos para seus treinos de rotina.</p>
+  </header>
+  <section class="products">
+    <h2>Mais vendidos:</h2>
+    @if(!loading()) {
+    <app-products [groupedProducts]="groupedProducts()"></app-products>
+    }@else {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">
+        <p>Carregando...</p>
+      </div>
+    </div>
+    }
+  </section>
+</main>

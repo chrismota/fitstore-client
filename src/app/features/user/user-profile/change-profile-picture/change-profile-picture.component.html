@@ -1,0 +1,50 @@
+<div class="image-container">
+  <h2 class="title">Alterar imagem de perfil</h2>
+  <figure class="profile-image">
+    @if (userHasNoImage()) {
+      <img
+        src="assets/images/placeholders/no-user.png"
+        class="default-image"
+        alt="Imagem de perfil"
+        title="Imagem de perfil"
+      />
+      <figcaption class="offscreen">Imagem de perfil</figcaption>
+    } @else if (userHasProfileImage()) {
+      <img
+        [src]="imageServerPath() + this.customer()?.imagePath"
+        alt="Imagem de perfil"
+        title="Imagem de perfil"
+      />
+      <figcaption class="offscreen">Imagem de perfil</figcaption>
+    } @else if (selectedImage()) {
+      <img
+        [src]="previewUrl()"
+        alt="Preview da Imagem"
+        title="Preview da Imagem"
+      />
+      <figcaption class="offscreen">Preview da Imagem</figcaption>
+    }
+  </figure>
+
+  <div class="upload-container">
+    <input
+      type="file"
+      #fileInput
+      (change)="onFileSelected(fileInput.files)"
+      accept="image/*"
+      hidden
+    />
+    <button class="hover-bg-red" (click)="fileInput.click()">
+      <fa-icon [icon]="faCamera"></fa-icon>Alterar Imagem
+    </button>
+
+    <button
+      class="hover-bg-red"
+      (click)="onUpload()"
+      [disabled]="!selectedImage()"
+      [class.disabled-button]="!selectedImage()"
+    >
+      <fa-icon [icon]="faFloppyDisk"></fa-icon>Salvar
+    </button>
+  </div>
+</div>

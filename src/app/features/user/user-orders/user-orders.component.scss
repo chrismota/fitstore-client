@@ -1,0 +1,293 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+main {
+  background-color: rgb(241, 241, 241);
+  padding: 0.7rem 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  flex-grow: 1;
+}
+
+header {
+  text-align: center;
+  font-size: min(1rem, 4vw);
+}
+
+.order-info {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.container {
+  width: 100%;
+  display: flex;
+}
+
+.order-type-list {
+  width: 14%;
+  display: flex;
+  flex-direction: column;
+  gap: min(0.3rem, 0.5vw);
+}
+
+.order-type-button {
+  width: 100%;
+  padding: min(0.8rem, 0.8vw) min(0.8rem, 1.5vw);
+  background-color: #b31b1b;
+  color: rgb(255, 255, 255);
+  font-size: min(1rem, 2vw);
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.selected {
+  background-color: rgb(255, 255, 255);
+  color: #b31b1b;
+  font-weight: 700;
+
+  &:hover {
+    background-color: rgb(255, 255, 255);
+  }
+}
+
+.order-container {
+  width: 86%;
+  max-height: 42rem;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.order-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.order-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: nowrap;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+
+.col-image {
+  width: 10%;
+}
+
+.col-products {
+  width: 35%;
+  text-align: center;
+}
+
+.col-created-at {
+  width: 20%;
+  text-align: center;
+}
+
+.col-total {
+  width: 20%;
+}
+
+.col-status {
+  width: 15%;
+  text-align: center;
+}
+
+.col-header {
+  font-weight: 600;
+  font-size: min(1.1rem, 2.4vw);
+  color: #252424;
+}
+
+.col-content {
+  font-size: min(1.1rem, 2.4vw);
+}
+
+.product-image img {
+  width: min(3.125rem, 6.5vw);
+  height: min(3.125rem, 6.5vw);
+  border-radius: 0.5rem;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-overflow: ellipsis;
+}
+
+.extra-count {
+  font-size: min(0.9rem, 2vw);
+  color: #555;
+  font-style: italic;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.paid {
+  color: #148514;
+}
+
+.pending {
+  color: #ffa500;
+}
+
+.expired {
+  color: #f53131;
+}
+
+.order-button {
+  margin-top: 1rem;
+  padding: min(0.6rem, 0.8vw) min(1rem, 1.5vw);
+  font-size: min(1rem, 2vw);
+  background-color: #b31b1b;
+  color: white;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.empty-orders {
+  height: 18rem;
+  border-radius: 5px;
+  font-size: min(1.2rem, 3.8vw);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #686666;
+  margin-bottom: 2rem;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner {
+  width: 3.125rem;
+  height: 3.125rem;
+  border: 5px solid #686666;
+  border-top: 5px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 966px) {
+  main {
+    padding: 0.7rem 0.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+
+  .order-type-list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.3rem;
+    padding: 0 0.5rem;
+  }
+
+  .order-type-button {
+    border-radius: 20px;
+    font-size: max(1.6vw, 1rem);
+    padding: max(1.3vw, 0.6rem);
+  }
+
+  .order-container {
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .order-info {
+    font-size: min(1rem, 4.5vw);
+  }
+
+  .order-type-button {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .order-card {
+    padding: 0.6rem;
+  }
+
+  .order-columns {
+    flex-direction: column;
+    row-gap: 1rem;
+    text-align: center;
+  }
+
+  .col {
+    width: 100%;
+    align-items: center;
+    row-gap: 0.3rem;
+  }
+
+  .col-header,
+  .col-content {
+    font-size: min(1rem, 4.5vw);
+  }
+
+  .product-image img {
+    width: 3.125rem;
+    height: 3.125rem;
+  }
+
+  .col-products {
+    align-items: center;
+  }
+
+  .extra-count {
+    font-size: 0.9rem;
+  }
+
+  .order-button {
+    padding: 0.6rem 1rem;
+    font-size: min(1rem, 4.5vw);
+  }
+
+  .empty-orders {
+    max-height: 37.5vw;
+    text-align: center;
+  }
+}

@@ -1,0 +1,105 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+main {
+  background-color: rgb(241, 241, 241);
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  flex-grow: 1;
+  padding: 3rem;
+  margin: 0 auto;
+}
+
+.header {
+  width: 100%;
+  max-width: 62.5rem;
+  font-size: 1.1rem;
+}
+
+.separator {
+  width: 100%;
+  max-width: 31.25rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.part {
+  width: 100%;
+}
+
+.brown {
+  background-color: #b31b1b;
+  flex: 2;
+  height: 5px;
+}
+
+.cyan {
+  background-color: #e2d8d8;
+  flex: 8;
+  height: 1px;
+}
+
+.content {
+  width: 100%;
+  max-width: 62.5rem;
+  font-size: 1.125rem;
+  line-height: 2;
+}
+
+ol {
+  padding-left: 1.2em;
+  counter-reset: item;
+  list-style: none;
+}
+
+li {
+  counter-increment: item;
+}
+
+.item-title {
+  font-size: 1.4rem;
+  display: inline;
+}
+
+.intro-content {
+  display: block;
+}
+
+p {
+  display: inline;
+}
+
+li::before {
+  content: counters(item, ".") ". ";
+  font-weight: bold;
+}
+
+.info {
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    padding: 1.6rem;
+  }
+
+  .header,
+  .content {
+    font-size: 1rem;
+  }
+
+  .item-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    padding: 1rem 0.8rem;
+  }
+}

@@ -1,0 +1,116 @@
+<header>
+  <nav class="navbar-upper">
+    <figure class="logo">
+      <img
+        src="assets/images/logo/logo.png"
+        alt="Logo image"
+        title="Fitstore"
+        width="100"
+        height="100"
+      />
+      <figcaption>Fitstore</figcaption>
+    </figure>
+    <div class="search">
+      <label for="search">Pesquise por um produto</label>
+      <div class="search-box">
+        <input
+          name="search"
+          [(ngModel)]="searchQuery"
+          type="text"
+          placeholder="Digite o nome do produto"
+          (keyup.enter)="onSubmit()"
+        />
+        <button (click)="onSubmit()">
+          <fa-icon [icon]="faSearch" />
+        </button>
+      </div>
+    </div>
+    <div class="settings">
+      @if (userIsAuthenticated()) {
+        <ul>
+          @if (!cartIsEmpty()) {
+            <li>
+              <a class="link" (click)="onToggleVisibility()"
+                ><fa-icon [icon]="faShoppingCart" class="icon" />Carrinho</a
+              >
+            </li>
+          }
+          <li>
+            <a class="link" routerLink="/user/orders"
+              ><fa-icon [icon]="faCreditCardAlt" class="icon" />Pedidos</a
+            >
+          </li>
+          <li>
+            @if (customer()?.imagePath) {
+              <a routerLink="/user/profile">
+                <img
+                  [src]="imageServerPath() + customer()?.imagePath"
+                  alt="Foto de perfil"
+                  title="Perfil"
+                  class="profile-image"
+                  width="50"
+                  height="50"
+                />
+              </a>
+            } @else {
+              <a routerLink="/user/profile" class="link"
+                ><fa-icon [icon]="faUser" class="icon" />Conta</a
+              >
+            }
+          </li>
+          <li (click)="onLogout()">
+            <a routerLink="/auth/login" class="link"
+              ><fa-icon [icon]="faRightFromBracket" class="icon" />Sair</a
+            >
+          </li>
+        </ul>
+      } @else {
+        <ul>
+          <li>
+            <a routerLink="/auth/login" class="link"
+              ><fa-icon [icon]="faRightToBracket" class="icon" />Login</a
+            >
+          </li>
+          <li>
+            <a routerLink="/auth/register" class="link">
+              <fa-icon [icon]="faUserPlus" class="icon" />Registrar</a
+            >
+          </li>
+        </ul>
+      }
+    </div>
+  </nav>
+  <nav class="navbar-lower">
+    <ul>
+      <li>
+        <a class="link" routerLink="/"
+          ><fa-icon [icon]="faHouse" class="icon" />Home</a
+        >
+      </li>
+      <li>
+        <div
+          class="dropdown-wrapper"
+          (mouseenter)="onToggleDropdownOn()"
+          (mouseleave)="onToggleDropdownOff()"
+        >
+          <a class="link"
+            ><fa-icon [icon]="faDumbbell" class="icon" />Produtos</a
+          >
+          @if (isDropdownOpen) {
+            <app-dropdown />
+          }
+        </div>
+      </li>
+      <li>
+        <a class="link" routerLink="/contact"
+          ><fa-icon [icon]="faPhone" class="icon" />Contato</a
+        >
+      </li>
+      <li>
+        <a class="link" routerLink="/about-us"
+          ><fa-icon [icon]="faFile" class="icon" />Sobre</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>

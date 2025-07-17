@@ -1,0 +1,42 @@
+<main>
+  <header>
+    @if (isPaymentType("CREDIT_CARD") || isPaymentType("DEBIT_CARD")) {
+      <h1>Pagamento com cartão</h1>
+      <p>Por favor, insira os dados do seu cartão para finalizar a compra.</p>
+    } @else if (isPaymentType("PIX")) {
+      <h1>Pagamento via PIX</h1>
+      <p>
+        Por favor, clique no botão abaixo para gerar o código PIX e para
+        prosseguir com o pagamento.
+      </p>
+    } @else if (isPaymentType("PAYMENT_SLIP")) {
+      <h1>Pagamento via Boleto Bancário</h1>
+      <p>
+        Por favor, clique no botão abaixo para gerar o código do boleto e
+        prosseguir com o pagamento.
+      </p>
+    }
+  </header>
+  <section>
+    <div class="left-column">
+      @if (isPaymentType("CREDIT_CARD") || isPaymentType("DEBIT_CARD")) {
+        <app-card-payment (validStatusChange)="onFormValidityChange($event)" />
+      } @else if (isPaymentType("PIX")) {
+        <app-pix-payment (success)="showButton()" />
+      } @else if (isPaymentType("PAYMENT_SLIP")) {
+        <app-payment-slip (success)="showButton()" />
+      }
+      @if (showPaymentButton()) {
+        <button
+          class="payment-button hover-bg-red"
+          (click)="onSimulatePayment()"
+        >
+          Simular pagamento
+        </button>
+      }
+    </div>
+    <div class="right-column">
+      <app-total-section></app-total-section>
+    </div>
+  </section>
+</main>

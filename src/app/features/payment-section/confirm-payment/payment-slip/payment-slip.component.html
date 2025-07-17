@@ -1,0 +1,12 @@
+<div class="header">
+  <h2>Boleto Bancário</h2>
+  <button class="hover-bg-red" (click)="onGeneratePaymentSlip()">
+    Gerar Boleto
+  </button>
+</div>
+@if (slipCode()) {
+  <div class="details">
+    <h2>Código:</h2>
+    <input type="text" [value]="slipCode()" readonly />
+  </div>
+}

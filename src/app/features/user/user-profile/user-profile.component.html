@@ -1,0 +1,46 @@
+<main>
+  <header>
+    <h1>Sua conta</h1>
+  </header>
+  <section class="account-container">
+    <nav class="account-settings-list">
+      <div>
+        <button
+          class="setting-button hover-bg-red"
+          [class.selected]="isSelected('INFO')"
+          (click)="onSelectSetting('INFO')"
+        >
+          Informações Pessoais
+        </button>
+      </div>
+      <div>
+        <button
+          class="setting-button hover-bg-red"
+          [class.selected]="isSelected('IMAGE')"
+          (click)="onSelectSetting('IMAGE')"
+        >
+          Foto de perfil
+        </button>
+      </div>
+      <div>
+        <button
+          class="setting-button hover-bg-red"
+          [class.selected]="isSelected('PASSWORD')"
+          (click)="onSelectSetting('PASSWORD')"
+        >
+          Senha
+        </button>
+      </div>
+    </nav>
+
+    <div class="right-column">
+      @if (isSelected("INFO")) {
+        <app-personal-info />
+      } @else if (isSelected("PASSWORD")) {
+        <app-change-password />
+      } @else if (isSelected("IMAGE")) {
+        <app-change-profile-picture />
+      }
+    </div>
+  </section>
+</main>

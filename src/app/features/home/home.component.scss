@@ -1,0 +1,65 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  row-gap: 1rem;
+  padding: 1rem;
+  background-color: rgb(241, 241, 241);
+  text-align: center;
+}
+
+header h1 {
+  font-size: min(7.5vw, 2rem);
+}
+
+header p {
+  font-size: min(4.8vw, 1.2rem);
+}
+
+.products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.products h2 {
+  font-size: min(6vw, 1.6rem);
+}
+
+.loading-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+  padding: 0.7rem 0;
+}
+
+.loading-spinner {
+  width: 3.125rem;
+  height: 3.125rem;
+  border: 5px solid #000000;
+  border-top: 5px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  font-size: 1.2rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

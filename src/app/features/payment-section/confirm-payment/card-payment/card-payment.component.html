@@ -1,0 +1,89 @@
+<div class="card-container">
+  <div>
+    <h2>Dados do cartão</h2>
+  </div>
+  <form [formGroup]="form">
+    <div class="controls">
+      <div class="row">
+        <div class="control">
+          <label for="cardNumber">Número do cartão</label>
+          <input
+            id="cardNumber"
+            type="text"
+            formControlName="cardNumber"
+            mask="0000 0000 0000 0000"
+            [class.invalid]="cardNumberIsInvalid"
+          />
+          @if (cardNumberIsInvalid) {
+            <div class="errors">
+              <p>Número do cartão inválido</p>
+            </div>
+          }
+        </div>
+        <div class="control">
+          <label for="name">Nome do titular</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            [class.invalid]="nameIsInvalid"
+          />
+          @if (nameIsInvalid) {
+            <div class="errors">
+              <p>Nome inválido</p>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="control">
+          <label for="securityCode">Código de segurança</label>
+          <input
+            id="securityCode"
+            type="text"
+            formControlName="securityCode"
+            mask="000"
+            [class.invalid]="securityCodeIsInvalid"
+          />
+          @if (securityCodeIsInvalid) {
+            <div class="errors">
+              <p>Código de segurança inválido</p>
+            </div>
+          }
+        </div>
+        <div class="control">
+          <label for="expirationDate">Data de validade</label>
+          <input
+            id="expirationDate"
+            type="text"
+            formControlName="expirationDate"
+            mask="00/0000"
+            [class.invalid]="expirationDateIsInvalid"
+          />
+          @if (expirationDateIsInvalid) {
+            <div class="errors">
+              <p>Data de validade inválida</p>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="control">
+          <label for="cpfCnpj">CPF/CNPJ</label>
+          <input
+            id="cpfCnpj"
+            type="text"
+            formControlName="cpfCnpj"
+            mask="000.000.000-00||00.000.000/0000-00"
+            [class.invalid]="cpfCnpjIsInvalid"
+          />
+          @if (cpfCnpjIsInvalid) {
+            <div class="errors">
+              <p>CPF/CNPJ inválido</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

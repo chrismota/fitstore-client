@@ -1,0 +1,23 @@
+<div class="dropdown-content">
+  @for (item of dropdownItems(); track item.id) {
+    <app-dropdown-item
+      [label]="item.label"
+      [dropsideId]="item.id"
+      [isActive]="isActiveDropside(item.id)"
+      (mouseEnter)="onSetActiveDropside($event)"
+      (mouseLeave)="onClearActiveDropside()"
+    >
+      @for (subItem of item.dropsideItems; track subItem.name) {
+        <a
+          [href]="
+            '/products/by-type?subCategory=' +
+            subItem.subCategory +
+            '&title=' +
+            subItem.name
+          "
+          >{{ subItem.name }}</a
+        >
+      }
+    </app-dropdown-item>
+  }
+</div>

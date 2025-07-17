@@ -1,0 +1,103 @@
+<main>
+  <section class="product-container">
+    <div class="left-column">
+      <figure class="product-image">
+        @if (product()?.imagePath) {
+          <img
+            [src]="imageServerPath() + product()?.imagePath"
+            [alt]="product()?.name"
+            [title]="product()?.name"
+          />
+        } @else {
+          <img
+            src="assets/images/placeholders/no-product.png"
+            alt="Sem imagem"
+            title="Sem imagem"
+            width="130"
+            height="120"
+          />
+        }
+        <figcaption class="offscreen">{{ product()?.name }}</figcaption>
+      </figure>
+    </div>
+    <div class="right-column">
+      <div class="product-info">
+        <p class="name">{{ product()?.name }}</p>
+        <p class="description">
+          {{ product()?.description }}
+        </p>
+        <hr class="separate-bar" />
+        <p class="brand">Marca: {{ product()?.brand }}</p>
+        <p class="price">{{ product()?.price | currency: "BRL" }}</p>
+      </div>
+      <div class="buttons">
+        <label for="quantity">Quantidade:</label>
+        <div class="unity">
+          <button (click)="onDecreaseUnit()">-</button>
+          <input name="quantity" type="text" [value]="productUnit()" readonly />
+          <button (click)="onIncreaseUnit()">+</button>
+        </div>
+        <button class="add-to-cart" (click)="onAddToCart()">
+          <fa-icon [icon]="faCartShopping"></fa-icon> Adicionar ao carrinho
+        </button>
+      </div>
+    </div>
+  </section>
+  @if (!relatedProductsIsEmpty()) {
+    <section class="related-products">
+      <div class="title">
+        <p>Produtos relacionados</p>
+        <hr class="separate-bar" />
+      </div>
+
+      <div class="carousel-wrapper">
+        <button
+          class="arrow-button left"
+          (click)="onPrevSlide(carouselContainer)"
+          [disabled]="prevButtonIsDisabled"
+        >
+          <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+        </button>
+
+        <div class="carousel-viewport">
+          <div
+            class="carousel-container"
+            #carouselContainer
+            [style.transform]="'translateX(' + translateX + 'px)'"
+            [style.width.px]="carouselWidth"
+            (touchstart)="onTouchStart($event)"
+            (touchmove)="onTouchMove($event)"
+            (touchend)="onTouchEnd(carouselContainer)"
+          >
+            @for (
+              product of loopedProducts();
+              track trackByProdutoId($index, product)
+            ) {
+              <a
+                class="related-product"
+                [href]="'/products/product/' + product.id"
+              >
+                @if (product.imagePath) {
+                  <img [src]="imageServerPath() + product.imagePath" />
+                } @else {
+                  <img src="assets/images/placeholders/no-product.png" />
+                }
+                <p class="name">{{ product.name }}</p>
+                <p class="price">
+                  {{ product.price | currency: "BRL" }}
+                </p>
+              </a>
+            }
+          </div>
+        </div>
+
+        <button
+          class="arrow-button right"
+          (click)="onNextSlide(carouselContainer)"
+        >
+          <fa-icon [icon]="faArrowCircleRight"></fa-icon>
+        </button>
+      </div>
+    </section>
+  }
+</main>

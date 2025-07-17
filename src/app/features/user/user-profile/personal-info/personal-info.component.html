@@ -1,0 +1,223 @@
+<div class="personal-info">
+  <h2 class="title">Informações pessoais</h2>
+  <form [formGroup]="form">
+    <div class="controls">
+      <div class="row">
+        <div class="control">
+          <label for="name">Nome:</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            [class.invalid]="nameIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (nameIsInvalid) {
+            <div class="errors">
+              <p>Campo nome é obrigatório e deve conter no mínimo 6 dígitos.</p>
+            </div>
+          }
+        </div>
+        <div class="control">
+          <label for="tel">Número de telefone:</label>
+          <input
+            id="tel"
+            type="tel"
+            formControlName="tel"
+            mask="(00) 00000-0000"
+            [class.invalid]="telIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (telIsInvalid) {
+            <div class="errors">
+              <p>Campo telefone é obrigatório e deve conter 11 dígitos.</p>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="control">
+          <label for="cpf">Cpf:</label>
+          <input
+            id="cpf"
+            type="cpf"
+            formControlName="cpf"
+            mask="000.000.000-00"
+            [class.invalid]="cpfIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (cpfIsInvalid) {
+            <div class="errors">
+              <p>Campo cpf é obrigatório e deve conter 11 dígitos.</p>
+            </div>
+          }
+        </div>
+        <div class="control">
+          <label for="email">Email:</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            [class.invalid]="emailIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (emailIsInvalid) {
+            <div class="errors">
+              <p>Insira um email válido.</p>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="control">
+          <label for="street">Rua:</label>
+          <input
+            id="street"
+            type="street"
+            formControlName="street"
+            [class.invalid]="streetIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (streetIsInvalid) {
+            <div class="errors">
+              <p>Campo rua é obrigatório.</p>
+            </div>
+          }
+        </div>
+        <div class="control">
+          <label for="address">nº:</label>
+          <input
+            id="houseNumber"
+            type="houseNumber"
+            formControlName="houseNumber"
+            [class.invalid]="houseNumberIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (houseNumberIsInvalid) {
+            <div class="errors">
+              <p>Número da casa é obrigatório.</p>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="control">
+          <label for="complement">Complemento:</label>
+          <input
+            id="complement"
+            type="complement"
+            formControlName="complement"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+        </div>
+        <div class="control">
+          <label for="neighborhood">Bairro:</label>
+          <input
+            id="neighborhood"
+            type="neighborhood"
+            formControlName="neighborhood"
+            [class.invalid]="neighborhoodIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (neighborhoodIsInvalid) {
+            <div class="errors">
+              <p>Campo bairro é obrigatório.</p>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="control">
+          <label for="city">Cidade:</label>
+          <input
+            id="city"
+            type="city"
+            formControlName="city"
+            [class.invalid]="cityIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (cityIsInvalid) {
+            <div class="errors">
+              <p>Campo cidade é obrigatório.</p>
+            </div>
+          }
+        </div>
+        <div class="control">
+          <label for="state">Estado:</label>
+          <input
+            id="state"
+            type="state"
+            formControlName="state"
+            [class.invalid]="stateIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (stateIsInvalid) {
+            <div class="errors">
+              <p>Campo endereço é obrigatório.</p>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="control">
+          <label for="cep">Cep:</label>
+          <input
+            id="cep"
+            type="cep"
+            formControlName="cep"
+            mask="00000-000"
+            [class.invalid]="cepIsInvalid"
+            [readonly]="!editInput()"
+            [class.disabled]="!editInput()"
+            [class.enabled]="editInput()"
+          />
+          @if (cepIsInvalid) {
+            <div class="errors">
+              <p>Campo endereço é obrigatório.</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button
+        class="hover-bg-red"
+        (click)="toggleEdit()"
+        [disabled]="editInput()"
+        [class.disabled-button]="editInput()"
+      >
+        <fa-icon [icon]="faEdit"></fa-icon>Editar
+      </button>
+
+      <button
+        class="hover-bg-red"
+        (click)="onSave()"
+        [disabled]="!editInput()"
+        [class.disabled-button]="!editInput()"
+      >
+        <fa-icon [icon]="faFloppyDisk"></fa-icon>Salvar
+      </button>
+    </div>
+  </form>
+</div>

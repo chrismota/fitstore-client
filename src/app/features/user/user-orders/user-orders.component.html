@@ -1,0 +1,156 @@
+<main>
+  <header>
+    <h1>Seus pedidos</h1>
+    <p class="order-info">
+      Os pedidos serão expirados 12 horas a partir do momento que em foi feito.
+      Certifique de pagá-los antes disso.
+    </p>
+  </header>
+  <section class="container">
+    <nav class="order-type-list">
+      <div class="order-type">
+        <button
+          class="order-type-button hover-bg-red"
+          [class.selected]="isSelected('ALL')"
+          (click)="onSelectOrder('ALL')"
+        >
+          Todos
+        </button>
+      </div>
+      <div class="order-type">
+        <button
+          class="order-type-button hover-bg-red"
+          [class.selected]="isSelected('PENDING')"
+          (click)="onSelectOrder('PENDING')"
+        >
+          Pendentes
+        </button>
+      </div>
+      <div class="order-type">
+        <button
+          class="order-type-button hover-bg-red"
+          [class.selected]="isSelected('PAID')"
+          (click)="onSelectOrder('PAID')"
+        >
+          Pagos
+        </button>
+      </div>
+      <div class="order-type">
+        <button
+          class="order-type-button hover-bg-red"
+          [class.selected]="isSelected('FAILED')"
+          (click)="onSelectOrder('FAILED')"
+        >
+          Expirados
+        </button>
+      </div>
+    </nav>
+    <div class="order-container">
+      @if (!loading()) {
+        @if (orderIsEmpty()) {
+          <div class="empty-orders">
+            <p>Você não possui pedidos nessa sessão.</p>
+          </div>
+        } @else {
+          <div class="order-list">
+            @for (order of orders(); track order.id) {
+              <article class="order-card">
+                <div class="order-columns">
+                  <div class="col col-image">
+                    <p class="col-header">Imagem</p>
+                    <figure class="col-content product-image">
+                      @if (order.items[0].imagePath) {
+                        <img
+                          [src]="imageServerPath() + order.items[0].imagePath"
+                          alt="{{ order.items[0].productName }}"
+                          title="{{ order.items[0].productName }}"
+                          loading="lazy"
+                          width="50"
+                          height="50"
+                        />
+                      } @else {
+                        <img
+                          src="assets/images/placeholders/no-product.png"
+                          alt="Imagem não disponível"
+                          title="Imagem não disponível"
+                          loading="lazy"
+                          width="50"
+                          height="50"
+                        />
+                      }
+                      <figcaption class="offscreen">
+                        {{ order.items[0].productName }}
+                      </figcaption>
+                    </figure>
+                  </div>
+                  <div class="col col-products">
+                    <p class="col-header">Produtos</p>
+                    <div class="col-content product-list">
+                      @for (item of order.items.slice(0, 2); track item.id) {
+                        <p>{{ item.productName }}</p>
+                      }
+                      @if (order.items.length > 2) {
+                        <p class="extra-count">
+                          + {{ order.items.length - 2 }}
+                          {{ order.items.length == 3 ? "item" : "itens" }}
+                        </p>
+                      }
+                    </div>
+                  </div>
+                  <div class="col col-created-at">
+                    <p class="col-header">Feito em</p>
+                    <p class="col-content">
+                      {{ order.createdAt | date: "dd/MM/yy 'às' h:mm a" }}
+                    </p>
+                  </div>
+                  <div class="col col-total">
+                    <p class="col-header">Total</p>
+                    <p class="col-content">
+                      {{ order.totalWithDiscount | currency: "BRL" }}
+                    </p>
+                  </div>
+                  <div class="col col-status">
+                    <p class="col-header">Status</p>
+                    <div class="col-content">
+                      <p
+                        class="status"
+                        [class.paid]="isStatus(order, 'PAID')"
+                        [class.pending]="isStatus(order, 'PENDING')"
+                        [class.expired]="isStatus(order, 'FAILED')"
+                      >
+                        @if (isStatus(order, "PAID")) {
+                          Pago
+                        }
+                        @if (isStatus(order, "PENDING")) {
+                          Pendente
+                        }
+                        @if (isStatus(order, "FAILED")) {
+                          Expirado
+                        }
+                      </p>
+                      @if (isStatus(order, "PENDING")) {
+                        <button
+                          class="order-button hover-bg-red"
+                          (click)="onGoToPayment(order)"
+                        >
+                          Pagar
+                        </button>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      } @else {
+        <div class="empty-orders">
+          <div class="loading">
+            <div class="spinner"></div>
+            <p>Carregando...</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</main>

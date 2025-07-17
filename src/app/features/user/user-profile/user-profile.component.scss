@@ -1,0 +1,109 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+main {
+  background-color: rgb(241, 241, 241);
+  padding: 0.7rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 0.6rem;
+  font-size: min(1rem, 4vw);
+}
+
+.account-container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 81.25rem;
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+}
+
+.account-settings-list {
+  width: 20%;
+  min-width: 12.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: min(0.2rem, 0.5vw);
+}
+
+.setting-button {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #b31b1b;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.selected {
+  background-color: rgb(255, 255, 255);
+  color: #b31b1b;
+  font-weight: bold;
+
+  &:hover {
+    background-color: rgb(255, 255, 255);
+  }
+}
+
+.right-column {
+  width: 80%;
+}
+
+@media screen and (max-width: 966px) {
+  .account-container {
+    width: 100%;
+  }
+
+  .setting-button {
+    font-size: max(1.6vw, 0.9375rem);
+    padding: max(1.3vw, 0.6rem);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .account-container {
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+
+  .account-settings-list {
+    width: 100%;
+    flex-direction: row;
+    column-gap: 0.3rem;
+  }
+
+  .setting-button {
+    border-radius: 20px;
+  }
+
+  .right-column {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  main {
+    padding: 0.7rem 0.5rem 3rem;
+  }
+
+  .account-settings-list {
+    justify-content: center;
+  }
+
+  .setting-button {
+    padding: 2.2vw 3vw;
+    font-size: 3.7vw;
+  }
+}

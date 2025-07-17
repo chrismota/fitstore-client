@@ -1,0 +1,25 @@
+<section>
+  <header>
+    <h2>Total a pagar</h2>
+  </header>
+  <div class="total-container">
+    <div class="total-divs">
+      <p>
+        <span class="strong">Total dos produtos:</span>
+        <span>{{ total() | currency : "BRL" }}</span>
+      </p>
+    </div>
+    <div class="total-divs">
+      <p>
+        <span class="strong">Desconto:</span>
+        <span class="discount">{{ discountPercent() }}%</span>
+      </p>
+    </div>
+    <div class="total-divs">
+      <p>
+        <span class="strong">Total c/ desconto:</span>
+        <span class="price">{{ totalWithDiscount()! | currency : "BRL" }}</span>
+      </p>
+    </div>
+  </div>
+</section>

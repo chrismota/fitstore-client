@@ -1,0 +1,15 @@
+<div class="modal-overlay" (click)="onCloseModal()">
+  <div
+    class="modal"
+    [class.modal-success]="isType('SUCCESS')"
+    [class.modal-error]="isType('ERROR')"
+  >
+    <h2
+      [class.title-success]="isType('SUCCESS')"
+      [class.title-error]="isType('ERROR')"
+    >
+      {{ title() }}
+    </h2>
+    <p>{{ message() }}</p>
+  </div>
+</div>

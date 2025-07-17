@@ -1,0 +1,83 @@
+<main>
+  <div class="result-text">
+    <p>
+      Exibindo resultados para:
+      <span>"{{ name() }}"</span>
+    </p>
+  </div>
+  @if (paginatedProductsIsEmpty()) {
+    <div class="empty-search">
+      <p>Nenhum produto encontrado para essa busca.</p>
+    </div>
+  } @else {
+    <section class="search-product-list">
+      @for (product of paginatedProducts(); track product.id) {
+        <div class="product">
+          <a [routerLink]="['/products/product', product.id]">
+            <figure class="image">
+              @if (product.imagePath) {
+                <img
+                  [src]="imageServerPath() + product.imagePath"
+                  [title]="product.name"
+                  [alt]="product.name"
+                />
+              } @else {
+                <img
+                  src="assets/images/placeholders/no-product.png"
+                  [title]="product.name"
+                  [alt]="product.name"
+                />
+              }
+              <figcaption class="offscreen">{{ product.name }}</figcaption>
+            </figure>
+            <div class="info">
+              <div class="name">
+                <p>
+                  {{ product.name }}
+                </p>
+              </div>
+              <div class="description">
+                <p>
+                  {{ product.description }}
+                </p>
+              </div>
+            </div>
+            <div class="price">
+              <p>{{ product.price | currency: "BRL" }}</p>
+            </div>
+          </a>
+
+          <button
+            class="add-cart hover-color-red"
+            (click)="onAddToCart(product)"
+          >
+            <fa-icon [icon]="faCartPlus"></fa-icon>
+          </button>
+
+          <button class="add-cart-mobile" (click)="onAddToCart(product)">
+            <fa-icon [icon]="faCartPlus"></fa-icon> Adicionar ao carrinho
+          </button>
+        </div>
+      }
+    </section>
+  }
+  @if (!pageNumbersIsEmpty()) {
+    <div class="pagination">
+      <button (click)="onPrevPage()" [disabled]="prevButtonIsDisabled()">
+        ❮
+      </button>
+      @for (page of pageNumbers(); track page) {
+        <button
+          (click)="onChangePage(page)"
+          [class.active]="buttonIsActive(page)"
+        >
+          {{ page }}
+        </button>
+      }
+
+      <button (click)="onNextPage()" [disabled]="nextButtonIsDisabled()">
+        ❯
+      </button>
+    </div>
+  }
+</main>

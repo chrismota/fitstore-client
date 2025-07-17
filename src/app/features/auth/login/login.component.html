@@ -1,0 +1,38 @@
+<main>
+  <section class="login-container">
+    <h1>Logue na sua conta</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="controls">
+        <div class="control">
+          <label for="email">Email:</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            [class.invalid]="emailIsInvalid"
+          />
+          @if (emailIsInvalid) {
+            <div class="errors">
+              <p>Por favor insira um e-mail válido.</p>
+            </div>
+          }
+        </div>
+        <div class="control">
+          <label for="password">Senha:</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            [class.invalid]="passwordIsInvalid"
+          />
+          @if (passwordIsInvalid) {
+            <div class="errors">
+              <p>Por favor insira uma senha válida (mais de 5 caracteres).</p>
+            </div>
+          }
+        </div>
+      </div>
+      <button class="login-button hover-bg-red">Logar</button>
+    </form>
+  </section>
+</main>

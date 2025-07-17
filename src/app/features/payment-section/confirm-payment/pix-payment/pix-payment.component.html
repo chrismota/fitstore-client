@@ -1,0 +1,26 @@
+<div class="header">
+  <h2>PIX</h2>
+  <button class="hover-bg-red" (click)="onGeneratePix()">
+    Gerar Código PIX
+  </button>
+</div>
+@if (pixCode()) {
+  <div class="details">
+    <figure class="qr-code">
+      <h2>QR Code</h2>
+      <img
+        src="assets/images/qr-code/qr.png"
+        alt="QR Code"
+        title="QR Code"
+        width="200"
+        height="200"
+      />
+      <figcaption class="offscreen">QR Code</figcaption>
+    </figure>
+
+    <div class="pix-code">
+      <h2>Código PIX</h2>
+      <textarea rows="3" cols="50" readonly>{{ pixCode() }}</textarea>
+    </div>
+  </div>
+}

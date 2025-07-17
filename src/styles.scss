@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  list-style: none;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(241, 241, 241);
+}
+
+.errors {
+  color: #b31b1b;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.control .invalid {
+  border-color: #b31b1b;
+  background-color: #fdd;
+}
+
+.offscreen {
+  position: absolute;
+  left: -625rem;
+}
+
+button.hover-bg-red:hover {
+  background-color: #9a1818;
+}
+
+button.hover-bg-grey:hover {
+  background-color: #ddd;
+}
+
+button.hover-color-grey:hover,
+button.hover-bg-red:hover {
+  transition: background-color 0.3s ease-in-out;
+}
+
+button.hover-color-red:hover {
+  color: #9a1818;
+  transition: color 0.3s ease-in-out;
+}
+
+img {
+  display: block;
+}
