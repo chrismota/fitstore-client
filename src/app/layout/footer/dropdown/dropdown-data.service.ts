@@ -1,10 +1,11 @@
 import { Injectable, signal } from '@angular/core';
+import { DropdownItem } from '../../../models/dropdownItem.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DropdownDataService {
-  private _dropdownItems = signal([
+  private _dropdownItems = signal<DropdownItem[]>([
     {
       id: '1',
       label: 'Aeróbicos',
