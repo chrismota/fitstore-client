@@ -12,7 +12,7 @@ import { CustomerService } from '../../../core/services/customer.service';
 import { MessageModalService } from '../../../core/services/messageModal.service';
 import { FormValidationService } from '../../../core/services/formValidation.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ExceptionDto } from '../../../models/exception.model';
+import { Exception } from '../../../models/exception.model';
 
 @Component({
   selector: 'app-register',
@@ -162,7 +162,7 @@ export class RegisterComponent {
           this.router.navigate(['/auth/login']);
         },
         error: (error: HttpErrorResponse) => {
-          const err: ExceptionDto = error.error;
+          const err: Exception = error.error;
 
           if (err.errorCode == 'DUPLICATE_FIELD') {
             this.messageModalService.buildErrorMessage(

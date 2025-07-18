@@ -10,7 +10,7 @@ import { catchError, EMPTY, map, Observable, of } from 'rxjs';
 import { SKIP_AUTH } from '../tokens/auth-context-token';
 import { MessageModalService } from './messageModal.service';
 import { Router } from '@angular/router';
-import { ExceptionDto } from '../../models/exception.model';
+import { Exception } from '../../models/exception.model';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +49,7 @@ export class ProductsService {
       `http://localhost:8080/products/category?category=${category}`,
     ).pipe(
       catchError((error: HttpErrorResponse) => {
-        const err: ExceptionDto = error.error;
+        const err: Exception = error.error;
 
         if (err.errorCode === 'CATEGORY_NOT_FOUND') {
           this.messageModalService.buildErrorMessage(
@@ -69,7 +69,7 @@ export class ProductsService {
         return this.groupProducts(products);
       }),
       catchError((error: HttpErrorResponse) => {
-        const err: ExceptionDto = error.error;
+        const err: Exception = error.error;
 
         if (err.errorCode === 'SUB_CATEGORY_NOT_FOUND') {
           this.messageModalService.buildErrorMessage(
@@ -102,7 +102,7 @@ export class ProductsService {
       `http://localhost:8080/products/${productId}`,
     ).pipe(
       catchError((error: HttpErrorResponse) => {
-        const err: ExceptionDto = error.error;
+        const err: Exception = error.error;
 
         if (err.errorCode === 'RESOURCE_NOT_FOUND') {
           this.messageModalService.buildErrorMessage(

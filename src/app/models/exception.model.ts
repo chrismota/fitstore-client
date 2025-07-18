@@ -1,4 +1,4 @@
-export interface ExceptionDto {
+export interface Exception {
   message: string;
   status: number;
   errorCode: string;

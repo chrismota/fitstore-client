@@ -18,7 +18,7 @@ import { Coupon } from '../../../models/coupon.model';
 import { TotalSectionComponent } from '../../../shared/components/total-section/total-section.component';
 import { WindowService } from '../../../core/services/window.service';
 import { OrderService } from '../../../core/services/order.service';
-import { ExceptionDto } from '../../../models/exception.model';
+import { Exception } from '../../../models/exception.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -85,7 +85,7 @@ export class PaymentComponent {
           this.isLoading.set(false);
         },
         error: (error: HttpErrorResponse) => {
-          const err: ExceptionDto = error.error;
+          const err: Exception = error.error;
 
           if (err.errorCode === 'INVALID_STATUS_VALUE') {
             this.messageModalService.buildErrorMessage(

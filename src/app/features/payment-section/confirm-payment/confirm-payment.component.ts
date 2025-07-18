@@ -10,7 +10,7 @@ import { PixPaymentComponent } from './pix-payment/pix-payment.component';
 import { PaymentSlipComponent } from './payment-slip/payment-slip.component';
 import { OrderService } from '../../../core/services/order.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ExceptionDto } from '../../../models/exception.model';
+import { Exception } from '../../../models/exception.model';
 
 @Component({
   selector: 'app-confirm-payment',
@@ -71,7 +71,7 @@ export class ConfirmPaymentComponent {
           this.router.navigate(['/']);
         },
         error: (error: HttpErrorResponse) => {
-          const err: ExceptionDto = error.error;
+          const err: Exception = error.error;
 
           if (err.errorCode === 'ORDER_EXPIRED') {
             this.messageModalService.buildErrorMessage(

@@ -9,7 +9,7 @@ import { catchError, EMPTY, Observable, switchMap, tap } from 'rxjs';
 import { Token } from '../../models/token.model';
 import { Customer } from '../../models/customer.model';
 import { CartService } from './cart.service';
-import { ExceptionDto } from '../../models/exception.model';
+import { Exception } from '../../models/exception.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +44,7 @@ export class AuthService {
           this.userIsAuthenticated.set(true);
         }),
         catchError((error: HttpErrorResponse) => {
-          const err: ExceptionDto = error.error;
+          const err: Exception = error.error;
 
           if (err.errorCode == 'INVALID_CREDENTIALS') {
             this.messageModalService.buildErrorMessage(

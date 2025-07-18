@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageModalService } from '../../../core/services/messageModal.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ExceptionDto } from '../../../models/exception.model';
+import { Exception } from '../../../models/exception.model';
 
 @Component({
   selector: 'app-user-orders',
@@ -54,7 +54,7 @@ export class UserOrdersComponent {
           this.orders.set(orders);
         },
         error: (error: HttpErrorResponse) => {
-          const err: ExceptionDto = error.error;
+          const err: Exception = error.error;
 
           if ((err.errorCode = 'INVALID_STATUS_VALUE')) {
             this.messageModalService.buildErrorMessage(

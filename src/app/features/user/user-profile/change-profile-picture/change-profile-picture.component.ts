@@ -6,7 +6,7 @@ import { CustomerService } from '../../../../core/services/customer.service';
 import { MessageModalService } from '../../../../core/services/messageModal.service';
 import { ImageUploadService } from './image-upload.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ExceptionDto } from '../../../../models/exception.model';
+import { Exception } from '../../../../models/exception.model';
 
 @Component({
   selector: 'app-change-profile-picture',
@@ -58,7 +58,7 @@ export class ChangeProfilePictureComponent {
           );
         },
         error: (error: HttpErrorResponse) => {
-          const err: ExceptionDto = error.error;
+          const err: Exception = error.error;
 
           if (
             err.errorCode == 'IMAGE_UPLOAD_ERROR' ||

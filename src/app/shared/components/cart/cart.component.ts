@@ -10,7 +10,7 @@ import { CartItem } from '../../../models/cartItem.model';
 import { OrderService } from '../../../core/services/order.service';
 import { MessageModalService } from '../../../core/services/messageModal.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ExceptionDto } from '../../../models/exception.model';
+import { Exception } from '../../../models/exception.model';
 
 @Component({
   selector: 'app-cart',
@@ -48,7 +48,7 @@ export class CartComponent {
           this.router.navigate(['/payment']);
         },
         error: (error: HttpErrorResponse) => {
-          const err: ExceptionDto = error.error;
+          const err: Exception = error.error;
 
           if (err.errorCode === 'RESOURCE_NOT_FOUND')
             this.messageModalService.buildErrorMessage(
