@@ -1,7 +1,6 @@
 import {
   Component,
   computed,
-  ElementRef,
   HostListener,
   inject,
   input,

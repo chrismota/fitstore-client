@@ -8,7 +8,6 @@ import {
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../../core/services/auth.service';
-import { MessageModalService } from '../../../core/services/messageModal.service';
 import { FormValidationService } from '../../../core/services/formValidation.service';
 
 @Component({
@@ -22,7 +21,6 @@ export class LoginComponent {
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private authService = inject(AuthService);
-  private messageModalService = inject(MessageModalService);
   private formService = inject(FormValidationService);
 
   form = new FormGroup({

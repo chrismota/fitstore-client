@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CurrencyPipe } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductsService } from '../../core/services/products.service';
 import { Product } from '../../models/product.model';
 import { MessageModalService } from '../../core/services/messageModal.service';
@@ -21,7 +21,6 @@ import { AuthService } from '../../core/services/auth.service';
 export class SearchComponent {
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
   private productsService = inject(ProductsService);
   private messageModalService = inject(MessageModalService);
   private cartService = inject(CartService);
